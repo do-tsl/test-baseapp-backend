@@ -5,7 +5,6 @@ run-name: ${{ github.actor }} is checking ${{ github.ref }} branch 🚀
 #    types: [published]
 on: [push]
 
-
 jobs:
   baseapp-auth-workflow:
     uses: ./.github/workflows/publish-workflow.yml
