@@ -79,7 +79,7 @@ jobs:
         run: python3 ${{ inputs.project }}/setup.py sdist
 
       - name: Publish distribution 📦 to Test PyPI
-        if: steps.changes.outputs.src == 'true'
+        if: steps.changes.outputs.src == 'true' && github.ref != 'refs/heads/master'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}

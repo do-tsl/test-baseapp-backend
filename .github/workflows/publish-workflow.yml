@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  project-workflow:
+  publish-workflow:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -33,8 +33,9 @@ jobs:
               - '${{ inputs.project }}/**'
 
       - name: Build distribution
-        if: steps.changes.outputs.src == 'true'
-        run: python3 ${{ inputs.project }}/setup.py sdist
+        if: steps.changes.outputs.src == 'true' && contains(github.event.release.tag_name, inputs.project)
+#        run: python3 ${{ inputs.project }}/setup.py sdist
+        run: echo ${{ github.event.release.tag_name }}
 
       - name: Publish distribution 📦 to Test PyPI
         if: steps.changes.outputs.src == 'true'
