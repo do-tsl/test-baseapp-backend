@@ -24,21 +24,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Check for changes
-        uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            src:
-              - '${{ inputs.project }}/**'
-
       - name: Build distribution
-        if: steps.changes.outputs.src == 'true' && contains(github.event.release.tag_name, inputs.project)
+        if: contains(github.event.release.tag_name, inputs.project)
 #        run: python3 ${{ inputs.project }}/setup.py sdist
         run: echo ${{ github.event.release.tag_name }}
 
       - name: Publish distribution 📦 to Test PyPI
-        if: steps.changes.outputs.src == 'true'
+        if: contains(github.event.release.tag_name, inputs.project)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
