@@ -1,8 +1,10 @@
 name: Publish
 run-name: ${{ github.actor }} is checking ${{ github.ref }} branch 🚀
-on:
-  release:
-    types: [published]
+#on:
+#  release:
+#    types: [published]
+on: [push]
+
 
 jobs:
   baseapp-auth-workflow:
